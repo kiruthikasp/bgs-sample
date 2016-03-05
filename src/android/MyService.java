@@ -2,7 +2,7 @@ package com.red_folder.phonegap.plugin.backgroundservice.sample;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import android.widget.Toast; 
 import org.json.JSONException;
 import org.json.JSONObject;
 
