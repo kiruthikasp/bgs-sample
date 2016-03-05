@@ -26,7 +26,7 @@ public class MyService extends BackgroundService {
 
 			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
 			result.put("Message", msg);
-			Toast.makeText(MyService.this.getApplicationContext(), "this is my Toast message!!! =)",
+			Toast.makeText(this.getApplicationContext(), "this is my Toast message!!! =)",
    			Toast.LENGTH_LONG).show();
 			Log.d(TAG, msg);
 		} catch (JSONException e) {
