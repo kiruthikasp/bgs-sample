@@ -12,6 +12,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.util.Log;
 import android.widget.Toast;
+import android.os.Binder;
+import android.os.IBinder;
+
+import android.content.Intent;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
