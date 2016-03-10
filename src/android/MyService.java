@@ -17,6 +17,8 @@ import android.os.IBinder;
 import android.os.Handler;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
