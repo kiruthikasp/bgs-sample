@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
