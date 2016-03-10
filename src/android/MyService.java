@@ -41,7 +41,12 @@ public class MyService extends BackgroundService {
 	          ctx = this; 
 	          startService();
 	    }
-	
+	public int onStartCommand(Intent intent, int flags, int startId) {
+	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
+	    // We want this service to continue running until it is explicitly
+	    // stopped, so return sticky.
+	    return START_STICKY;
+	}
 	    private void startService()
 	    {           
 	        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
