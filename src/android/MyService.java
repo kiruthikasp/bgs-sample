@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.os.Messenger;
+import android.widget.Toast;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
@@ -94,9 +95,6 @@ public class MyService extends BackgroundService {
 	}
 	
 	public void doSomethingOnService() throws AirWavesException {
-	    if (!isWiFiEnabled()) {
-	      throw new AirWavesException("No WiFi connection available.");
-	    }
 	
 	    handler.post(new Runnable() {
 	      @Override
