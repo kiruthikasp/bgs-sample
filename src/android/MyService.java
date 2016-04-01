@@ -44,6 +44,7 @@ public class MyService extends BackgroundService {
 	    }
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
+	    Toast.makeText(this, "LocalService", "Received start id " + startId + ": "+ intent, Toast.LENGTH_SHORT).show();
 	    // We want this service to continue running until it is explicitly
 	    // stopped, so return sticky.
 	    return START_STICKY;
@@ -88,6 +89,7 @@ public class MyService extends BackgroundService {
 			Toast.makeText(this.getApplicationContext(), "this is my Toast message!!! =)",
    			Toast.LENGTH_LONG).show();
 			Log.d(TAG, msg);
+			Toast.makeText(getApplicationContext(), "do work!!", Toast.LENGTH_SHORT).show();
 			 Log.i("Service", "doSomethingOnService() called");
 		} catch (JSONException e) {
 		}
@@ -101,6 +103,7 @@ public class MyService extends BackgroundService {
 		
 		try {
 			result.put("HelloTo", this.mHelloTo);
+			Toast.makeText(getApplicationContext(), "get config", Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 		}
 		
@@ -112,6 +115,7 @@ public class MyService extends BackgroundService {
 		try {
 			if (config.has("HelloTo"))
 				this.mHelloTo = config.getString("HelloTo");
+				Toast.makeText(getApplicationContext(), "setconfig", Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 		}
 		
