@@ -88,24 +88,13 @@ public class MyService extends BackgroundService {
 			Toast.makeText(this.getApplicationContext(), "this is my Toast message!!! =)",
    			Toast.LENGTH_LONG).show();
 			Log.d(TAG, msg);
+			 Log.i("Service", "doSomethingOnService() called");
 		} catch (JSONException e) {
 		}
 		
 		return result;	
 	}
 	
-	public void doSomethingOnService() throws AirWavesException {
-	
-	    handler.post(new Runnable() {
-	      @Override
-	      public void run() {
-	        mToast.setText("do something");
-	        mToast.show();
-	      }
-	    });
-	    Log.i("Service", "doSomethingOnService() called");
-	  }
-
 	@Override
 	protected JSONObject getConfig() {
 		JSONObject result = new JSONObject();
