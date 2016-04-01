@@ -92,6 +92,21 @@ public class MyService extends BackgroundService {
 		
 		return result;	
 	}
+	
+	public void doSomethingOnService() throws AirWavesException {
+	    if (!isWiFiEnabled()) {
+	      throw new AirWavesException("No WiFi connection available.");
+	    }
+	
+	    handler.post(new Runnable() {
+	      @Override
+	      public void run() {
+	        mToast.setText("do something");
+	        mToast.show();
+	      }
+	    });
+	    Log.i("Service", "doSomethingOnService() called");
+	  }
 
 	@Override
 	protected JSONObject getConfig() {
