@@ -44,7 +44,7 @@ public class MyService extends BackgroundService {
 	    }
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
-	    Toast.makeText(this, "LocalService", "Received start id " + startId + ": "+ intent, Toast.LENGTH_SHORT).show();
+	    Toast.makeText(this, "LocalServic Received start id "+ startId , Toast.LENGTH_SHORT).show();
 	    // We want this service to continue running until it is explicitly
 	    // stopped, so return sticky.
 	    return START_STICKY;
