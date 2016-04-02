@@ -84,43 +84,14 @@ public class MyService extends BackgroundService {
 			/**
 			 * call activity
 			 */
-			if(activity != null) {
-				if(com_name.equals("action")) {
-					/**
-					 * . < 0: VIEW
-					 * . >= 0: android.intent.action.VIEW
-					 */
-					if(activity.indexOf(".") < 0) {
-						activity = "android.intent.action." + activity;
-					}
-					
-					// if uri exists
-					if(intenuri != null) {
-						LaunchIntent = new Intent(activity, Uri.parse(intenuri));
-					}
-					else {
-						LaunchIntent = new Intent(activity);
-					}
-				}
-				else {
-					LaunchIntent = new Intent();
-					LaunchIntent.setComponent(new ComponentName(com_name, activity));
-				}
-			}
-			else {
-				LaunchIntent = this.cordova.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
-			}
+		
+			LaunchIntent = this.cordova.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
 			
-		/**
-			 * start activity
-			 */
 			this.cordova.getActivity().startActivity(LaunchIntent);
-			callback.success();
-			
+
 		} catch (JSONException e) {
-			callback.error("json: " + e.toString());
+			
 		} catch (Exception e) {
-			callback.error("intent: " + e.toString());
         }
     }
 
