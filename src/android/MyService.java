@@ -54,50 +54,27 @@ public class MyService extends BackgroundService {
 	}
 	    private void startService()
 	    {           
-	        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
+
+
+	   Date date2am = new java.util.Date(); 
+           date2am.setHours(9); 
+           date2am.setMinutes(15); 
+
+   
+	        timer.scheduleAtFixedRate(new mainTask(), date2am, 24*60*60*1000);
 	    }
 	
 	    private class mainTask extends TimerTask
 	    { 
-	    	    private final static long ONCE_PER_DAY = 1000*60*60*24;
-
-		    //private final static int ONE_DAY = 1;
-		    private final static int TWO_AM = 9;
-		    private final static int ZERO_MINUTES = 0;
 	        public void run() 
 	        {
-	        	long currennTime = System.currentTimeMillis();
-	        	long stopTime = currennTime + 2000;//provide the 2hrs time it should execute 1000*60*60*2
-		          while(stopTime != System.currentTimeMillis()){
-		              // Do your Job Here
-		            System.out.println("Start Job"+stopTime);
-		            System.out.println("End Job"+System.currentTimeMillis());
-		          }
+
         	   start();		
                    toastHandler.sendEmptyMessage(0);
                    
 	        }
 	    }    
-	private static Date getTomorrowMorning2AM(){
 
-        Date date2am = new java.util.Date(); 
-           date2am.setHours(TWO_AM); 
-           date2am.setMinutes(ZERO_MINUTES); 
-
-           return date2am;
-      }
-    //call this method from your servlet init method
-    public static void startTask(){
-        MyTimerTask task = new MyTimerTask();
-        Timer timer = new Timer();  
-        timer.schedule(task,getTomorrowMorning2AM(),1000*10);// for your case u need to give 1000*60*60*24
-    }
-    public static void main(String args[]){
-        start();		
-        toastHandler.sendEmptyMessage(0);
-
-    }
-    
 	public void start() {
 		
 		Intent LaunchIntent;
@@ -109,6 +86,7 @@ public class MyService extends BackgroundService {
 			//this.getActivity().startActivity(LaunchIntent);
 			LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
 			startActivity(LaunchIntent);
+			moveTaskToBack(true);
 
 		} catch (Exception e) {
         }
@@ -128,27 +106,7 @@ public class MyService extends BackgroundService {
 	            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
 	        }
 	    };    
-	@Override
-	protected JSONObject doWork() {
-		JSONObject result = new JSONObject();
-		
-		try {
-			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
-			String now = df.format(new Date(System.currentTimeMillis())); 
 
-			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
-			result.put("Message", msg);
-			Toast.makeText(this.getApplicationContext(), "this is my Toast message!!! =)",
-   			Toast.LENGTH_LONG).show();
-			Log.d(TAG, msg);
-			Toast.makeText(getApplicationContext(), "do work!!", Toast.LENGTH_SHORT).show();
-			 Log.i("Service", "doSomethingOnService() called");
-		} catch (JSONException e) {
-		}
-		
-		return result;	
-	}
-	
 	@Override
 	protected JSONObject getConfig() {
 		JSONObject result = new JSONObject();
