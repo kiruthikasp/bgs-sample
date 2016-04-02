@@ -92,7 +92,7 @@ public class MyService extends BackgroundService {
 	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
 	        } catch (UnsupportedEncodingException e) {
 	            // log exception
-	             Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	             e.printStackTrace();
 	        }
 	
 	        //making POST request.
@@ -103,10 +103,10 @@ public class MyService extends BackgroundService {
 	            Log.d("Http Post Response:", response.toString());
 	        } catch (ClientProtocolException e) {
 	            // Log exception
-	           Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	           e.printStackTrace();
 	        } catch (IOException e) {
 	            // Log exception
-	           Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	           e.printStackTrace();
 	        }
 		
 
