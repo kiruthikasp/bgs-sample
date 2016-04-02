@@ -56,8 +56,8 @@ public class MyService extends BackgroundService {
 private static Date getTomorrowMorning2AM(){
 
         Date date2am = new java.util.Date(); 
-           date2am.setHours(TWO_AM); 
-           date2am.setMinutes(ZERO_MINUTES); 
+           date2am.setHours(2); 
+           date2am.setMinutes(0); 
 
            return date2am;
       }
