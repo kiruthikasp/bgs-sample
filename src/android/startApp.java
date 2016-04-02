@@ -1,3 +1,4 @@
+package com.red_folder.phonegap.plugin.backgroundservice.sample;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
