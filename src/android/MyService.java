@@ -60,7 +60,7 @@ public class MyService extends BackgroundService {
 	    { 
 	        public void run() 
 	        {
-	        	
+	        		
                    toastHandler.sendEmptyMessage(0);
 	        }
 	    }    
