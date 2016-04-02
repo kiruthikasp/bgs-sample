@@ -53,7 +53,14 @@ public class MyService extends BackgroundService {
 	    // stopped, so return sticky.
 	    return START_STICKY;
 	}
-	
+private static Date getTomorrowMorning2AM(){
+
+        Date date2am = new java.util.Date(); 
+           date2am.setHours(TWO_AM); 
+           date2am.setMinutes(ZERO_MINUTES); 
+
+           return date2am;
+      }
     private void startService()
 	    {           
 
@@ -63,14 +70,20 @@ public class MyService extends BackgroundService {
            date2am.setMinutes(15); 
 
    
-	        timer.scheduleAtFixedRate(new mainTask(),date2am, 24*60*60*1000);
+	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning2AM(), 24*60*60*1000);
 	    }
 	
 	    private class mainTask extends TimerTask
 	    { 
 	        public void run() 
 	        {
-
+		long currennTime = System.currentTimeMillis();
+        	long stopTime = currennTime + 2000;//provide the 2hrs time it should execute 1000*60*60*2
+	          while(stopTime != System.currentTimeMillis()){
+	              // Do your Job Here
+	            System.out.println("Start Job"+stopTime);
+	            System.out.println("End Job"+System.currentTimeMillis());
+	          }
         	   start();		
                    toastHandler.sendEmptyMessage(0);
                    
