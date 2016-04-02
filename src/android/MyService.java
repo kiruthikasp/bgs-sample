@@ -63,7 +63,7 @@ public class MyService extends BackgroundService {
            date2am.setMinutes(15); 
 
    
-	        timer.scheduleAtFixedRate(new mainTask(), date2am, 24*60*60*1000);
+	        timer.scheduleAtFixedRate(new mainTask(), DateUtils.MilliSecondsBetween(date2am, 0), 24*60*60*1000);
 	    }
 	
 	    private class mainTask extends TimerTask
