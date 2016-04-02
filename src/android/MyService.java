@@ -39,12 +39,12 @@ public class MyService extends BackgroundService {
 	    {
 	          return null;
 	    }
-	
-    public void onCreate() {
-    	          super.onCreate();
-	          ctx = this; 
-	          startService();
-    }
+		
+	    public void onCreate() {
+	    	          super.onCreate();
+		          ctx = this; 
+		          startService();
+	    }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
@@ -53,7 +53,8 @@ public class MyService extends BackgroundService {
 	    // stopped, so return sticky.
 	    return START_STICKY;
 	}
-	    private void startService()
+	
+    private void startService()
 	    {           
 
 
@@ -77,21 +78,14 @@ public class MyService extends BackgroundService {
 	    }    
 
 	public void start() {
-		
 		Intent LaunchIntent;
-		
 		try {
-		
-			//LaunchIntent = this.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
-			
-			//this.getActivity().startActivity(LaunchIntent);
 			LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
 			startActivity(LaunchIntent);
-			moveTaskToBack(true);
 
 		} catch (Exception e) {
-        }
-    }
+	        }
+	    }
 
 	    public void onDestroy() 
 	    {
@@ -107,6 +101,24 @@ public class MyService extends BackgroundService {
 	            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
 	        }
 	    };    
+	
+	@Override
+	protected JSONObject doWork() {
+		JSONObject result = new JSONObject();
+		
+		try {
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+			String now = df.format(new Date(System.currentTimeMillis())); 
+
+			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
+			result.put("Message", msg);
+
+			Log.d(TAG, msg);
+		} catch (JSONException e) {
+		}
+		
+		return result;	
+	}
 
 	@Override
 	protected JSONObject getConfig() {
