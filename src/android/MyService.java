@@ -70,12 +70,17 @@ public class MyService extends BackgroundService {
         	String serverUrl = "http://rajaserver01.go.dyndns.org:7777/hr_signin";
 				
 	        Map<String, String> params = new HashMap<String, String>();
-		params.put("dbname","test_erp_data");
-		params.put("uname","admin");
+		params.put();
+		params.put();
 		params.put("pwd","admin@123");
 		params.put("ip", "localhost");
 		params.put("wifi", "Pinnacle7");
 		params.put("device","Test Mobile");
+		
+		List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+        	nameValuePair.add(new BasicNameValuePair("dbname","test_erp_data"));
+        	nameValuePair.add(new BasicNameValuePair("uname","admin"));
+        	nameValuePair.add(new BasicNameValuePair("uname","admin"));
 		
 		if (NetworkUtil.networkAvailable(ctx)) {
 			try {
@@ -98,9 +103,12 @@ public class MyService extends BackgroundService {
 		private static void postRequest(String endpoint,
 			final Map<String, String> params, Context context)
 			throws IOException {
-
-		URL url;
-		if (NetworkUtil.isConnectingToInternet(context)) {
+				
+			HttpClient httpClient = new DefaultHttpClient();
+        		URL url;        // replace with your url
+        		HttpPost httpPost = new HttpPost(url); 
+		
+		
 			try {
 
 				url = new URL(endpoint);
@@ -114,8 +122,6 @@ public class MyService extends BackgroundService {
 			} catch (Exception e) {
 
 			}
-		}
-
 	}
 	
 	    public void onDestroy() 
