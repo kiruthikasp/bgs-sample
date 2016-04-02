@@ -36,47 +36,12 @@ public class MyService extends BackgroundService {
 	          return null;
 	    }
 	
-
-	    
-	    @Override
     public void onCreate() {
-    	super.onCreate();
+    	          super.onCreate();
 	          ctx = this; 
 	          startService();
-        // cancel if already existed
-        if(mTimer != null) {
-            mTimer.cancel();
-        } else {
-            // recreate new
-            mTimer = new Timer();
-        }
-        // schedule task
-        mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, NOTIFY_INTERVAL);
     }
  
-    class TimeDisplayTimerTask extends TimerTask {
- 
-        @Override
-        public void run() {
-            // run on another thread
-            mHandler.post(new Runnable() {
- 
-                @Override
-                public void run() {
-                    // display toast
-                    Toast.makeText(getApplicationContext(), getDateTime(),
-                            Toast.LENGTH_SHORT).show();
-                }
- 
-            });
-        }
- 
-        private String getDateTime() {
-            // get date time in custom format
-            SimpleDateFormat sdf = new SimpleDateFormat("[yyyy/MM/dd - HH:mm:ss]");
-            return sdf.format(new Date());
-        }
-        
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
 	    Toast.makeText(this, "LocalServic Received start id "+ startId , Toast.LENGTH_SHORT).show();
