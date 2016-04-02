@@ -85,8 +85,6 @@ public class MyService extends BackgroundService {
 			LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
 			startActivity(LaunchIntent);
 
-		} catch (JSONException e) {
-			
 		} catch (Exception e) {
         }
     }
