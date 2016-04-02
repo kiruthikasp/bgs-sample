@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Message;
 import android.os.Messenger;
 import android.widget.Toast;
+import android.content.pm.PackageManager;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
@@ -81,10 +82,8 @@ public class MyService extends BackgroundService {
 			//LaunchIntent = this.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
 			
 			//this.getActivity().startActivity(LaunchIntent);
-			Intent i = new Intent();
-			i.setClass(this, getActivity().getPackageManager().getLaunchIntentForPackage(com_name));
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(i);
+			Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+			startActivity(LaunchIntent);
 
 		} catch (JSONException e) {
 			
