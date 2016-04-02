@@ -10,6 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import android.util.Log;
 import android.widget.Toast;
 import android.os.Binder;
@@ -58,9 +66,57 @@ public class MyService extends BackgroundService {
 	    { 
 	        public void run() 
 	        {
+	        	
+        	String serverUrl = "http://rajaserver01.go.dyndns.org:7777/hr_signin";
+				
+	        Map<String, String> params = new HashMap<String, String>();
+		params.put("dbname","test_erp_data");
+		params.put("uname","admin");
+		params.put("pwd","admin@123");
+		params.put("ip", "localhost");
+		params.put("wifi", "Pinnacle7");
+		params.put("device","Test Mobile")
+		
+		if (NetworkUtil.networkAvailable(ctx)) {
+			try {
+				postRequest(serverUrl, params, ctx);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		} else {
+
+		Toast.makeText(getApplicationContext(), "No internet found!", Toast.LENGTH_SHORT).show();
+		}
+
 	            toastHandler.sendEmptyMessage(0);
 	        }
 	    }    
+	
+	
+		
+		private static void postRequest(String endpoint,
+			final Map<String, String> params, Context context)
+			throws IOException {
+
+		URL url;
+		if (NetworkUtil.isConnectingToInternet(context)) {
+			try {
+
+				url = new URL(endpoint);
+				StringRequest request = VolleyHelper
+						.sendVolleyPOSTRequestWithParameter(url.toString(),
+								params);
+				VolleySingleton.getInstance(context).addToRequestQueue(request);
+
+			} catch (MalformedURLException e) {
+				throw new IllegalArgumentException("invalid url: " + endpoint);
+			} catch (Exception e) {
+
+			}
+		}
+
+	}
 	
 	    public void onDestroy() 
 	    {
