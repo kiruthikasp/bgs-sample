@@ -6,6 +6,16 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
@@ -67,63 +77,45 @@ public class MyService extends BackgroundService {
 	        public void run() 
 	        {
 	        	
-        	String serverUrl = "http://rajaserver01.go.dyndns.org:7777/hr_signin";
+        	HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost("http://rajaserver01.go.dyndns.org:7777/hr_signin"); 
 				
-	        Map<String, String> params = new HashMap<String, String>();
-		params.put();
-		params.put();
-		params.put("pwd","admin@123");
-		params.put("ip", "localhost");
-		params.put("wifi", "Pinnacle7");
-		params.put("device","Test Mobile");
-		
 		List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
         	nameValuePair.add(new BasicNameValuePair("dbname","test_erp_data"));
         	nameValuePair.add(new BasicNameValuePair("uname","admin"));
-        	nameValuePair.add(new BasicNameValuePair("uname","admin"));
+        	nameValuePair.add(new BasicNameValuePair("pwd","admin@123"));
+        	nameValuePair.add(new BasicNameValuePair("ip", "localhost"));
+        	nameValuePair.add(new BasicNameValuePair("wifi", "Pinnacle7"));
+        	nameValuePair.add(new BasicNameValuePair("device","Test Mobile"));
 		
-		if (NetworkUtil.networkAvailable(ctx)) {
-			try {
-				postRequest(serverUrl, params, ctx);
-			} catch (IOException e) {
+		try {
+	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+	        } catch (UnsupportedEncodingException e) {
+	            // log exception
+	             Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	        }
+	
+	        //making POST request.
+	        try {
+	            HttpResponse response = httpClient.execute(httpPost);
+	            // write response to log
+	            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+	            Log.d("Http Post Response:", response.toString());
+	        } catch (ClientProtocolException e) {
+	            // Log exception
+	           Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	        } catch (IOException e) {
+	            // Log exception
+	           Toast.makeText(getApplicationContext(), e, Toast.LENGTH_SHORT).show();
+	        }
+		
 
-				e.printStackTrace();
-			}
-		} else {
-
-		Toast.makeText(getApplicationContext(), "No internet found!", Toast.LENGTH_SHORT).show();
-		}
 
 	            toastHandler.sendEmptyMessage(0);
 	        }
 	    }    
 	
-	
-		
-		private static void postRequest(String endpoint,
-			final Map<String, String> params, Context context)
-			throws IOException {
-				
-			HttpClient httpClient = new DefaultHttpClient();
-        		URL url;        // replace with your url
-        		HttpPost httpPost = new HttpPost(url); 
-		
-		
-			try {
 
-				url = new URL(endpoint);
-				StringRequest request = VolleyHelper
-						.sendVolleyPOSTRequestWithParameter(url.toString(),
-								params);
-				VolleySingleton.getInstance(context).addToRequestQueue(request);
-
-			} catch (MalformedURLException e) {
-				throw new IllegalArgumentException("invalid url: " + endpoint);
-			} catch (Exception e) {
-
-			}
-	}
-	
 	    public void onDestroy() 
 	    {
 	          super.onDestroy();
