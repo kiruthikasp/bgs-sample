@@ -81,13 +81,10 @@ public class MyService extends BackgroundService {
 		activity = "com.pinnacle.hr.MAIN";
 		
 		try {
-			/**
-			 * call activity
-			 */
 		
-			LaunchIntent = this.cordova.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
+			LaunchIntent = getApplicationContext().getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
 			
-			this.cordova.getActivity().startActivity(LaunchIntent);
+			getApplicationContext().getActivity().startActivity(LaunchIntent);
 
 		} catch (JSONException e) {
 			
