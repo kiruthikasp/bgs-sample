@@ -82,9 +82,13 @@ public class MyService extends BackgroundService {
 		
 		try {
 		
-			LaunchIntent = this.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
+			//LaunchIntent = this.getActivity().getPackageManager().getLaunchIntentForPackage(com_name);
 			
-			this.getActivity().startActivity(LaunchIntent);
+			//this.getActivity().startActivity(LaunchIntent);
+			Intent i = new Intent();
+			i.setClass(this, MainActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
 
 		} catch (JSONException e) {
 			
