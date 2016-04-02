@@ -75,7 +75,7 @@ public class MyService extends BackgroundService {
 		params.put("pwd","admin@123");
 		params.put("ip", "localhost");
 		params.put("wifi", "Pinnacle7");
-		params.put("device","Test Mobile")
+		params.put("device","Test Mobile");
 		
 		if (NetworkUtil.networkAvailable(ctx)) {
 			try {
