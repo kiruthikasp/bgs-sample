@@ -7,8 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
