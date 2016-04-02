@@ -6,31 +6,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -81,41 +61,7 @@ public class MyService extends BackgroundService {
 	        public void run() 
 	        {
 	        	
-        	HttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("http://rajaserver01.go.dyndns.org:7777/hr_signin"); 
-				
-		List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-        	nameValuePair.add(new BasicNameValuePair("dbname","test_erp_data"));
-        	nameValuePair.add(new BasicNameValuePair("uname","admin"));
-        	nameValuePair.add(new BasicNameValuePair("pwd","admin@123"));
-        	nameValuePair.add(new BasicNameValuePair("ip", "localhost"));
-        	nameValuePair.add(new BasicNameValuePair("wifi", "Pinnacle7"));
-        	nameValuePair.add(new BasicNameValuePair("device","Test Mobile"));
-		
-		try {
-	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-	        } catch (UnsupportedEncodingException e) {
-	            // log exception
-	             e.printStackTrace();
-	        }
-	
-	        //making POST request.
-	        try {
-	            HttpResponse response = httpClient.execute(httpPost);
-	            // write response to log
-	            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-	            Log.d("Http Post Response:", response.toString());
-	        } catch (ClientProtocolException e) {
-	            // Log exception
-	           e.printStackTrace();
-	        } catch (IOException e) {
-	            // Log exception
-	           e.printStackTrace();
-	        }
-		
-
-
-	            toastHandler.sendEmptyMessage(0);
+                   toastHandler.sendEmptyMessage(0);
 	        }
 	    }    
 	
