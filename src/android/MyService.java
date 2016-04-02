@@ -71,12 +71,8 @@ public class MyService extends BackgroundService {
 		Intent LaunchIntent;
 		
 		String com_name = null;
-		
 		String activity = null;
-		String spackage = null;
-		String intetype = null;
-		String intenuri = null;
-		
+
 		com_name = "com.pinnacle.hr";
 		activity = "com.pinnacle.hr.MAIN";
 		
@@ -86,7 +82,7 @@ public class MyService extends BackgroundService {
 			
 			//this.getActivity().startActivity(LaunchIntent);
 			Intent i = new Intent();
-			i.setClass(this, MainActivity.class);
+			i.setClass(this, getActivity().getPackageManager().getLaunchIntentForPackage(com_name));
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);
 
