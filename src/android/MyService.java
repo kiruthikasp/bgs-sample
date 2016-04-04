@@ -41,9 +41,9 @@ public class MyService extends BackgroundService {
 	    }
 		
 	    public void onCreate() {
-	    	          super.onCreate();
-		          ctx = this; 
-		          startService();
+                  super.onCreate();
+	          ctx = this; 
+	          startService();
 	    }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -53,27 +53,22 @@ public class MyService extends BackgroundService {
 	    // stopped, so return sticky.
 	    return START_STICKY;
 	}
-private static Date getTomorrowMorning2AM(){
+	
+	private static Date getTomorrowMorning2AM(){
 
-        Date date2am = new java.util.Date(); 
-           date2am.setHours(2); 
-           date2am.setMinutes(0); 
-
-           return date2am;
-      }
-    private void startService()
-	    {           
-
-
-	   Date date2am = new java.util.Date(); 
+           Date date2am = new java.util.Date(); 
            date2am.setHours(9); 
            date2am.setMinutes(15); 
 
-   
+           return date2am;
+       }
+       
+       private void startService()
+	    {           
 	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning2AM(), 24*60*60*1000);
 	    }
 	
-	    private class mainTask extends TimerTask
+       private class mainTask extends TimerTask
 	    { 
 	        public void run() 
 	        {
@@ -81,11 +76,12 @@ private static Date getTomorrowMorning2AM(){
         	long stopTime = currennTime + 2000;//provide the 2hrs time it should execute 1000*60*60*2
 	          while(stopTime != System.currentTimeMillis()){
 	              // Do your Job Here
+	              start();		
+                   toastHandler.sendEmptyMessage(0);
 	            System.out.println("Start Job"+stopTime);
 	            System.out.println("End Job"+System.currentTimeMillis());
 	          }
-        	   start();		
-                   toastHandler.sendEmptyMessage(0);
+        	   
                    
 	        }
 	    }    
@@ -100,13 +96,13 @@ private static Date getTomorrowMorning2AM(){
 	        }
 	    }
 
-	    public void onDestroy() 
+       public void onDestroy() 
 	    {
 	          super.onDestroy();
 	          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
 	    }
 	
-	    private final Handler toastHandler = new Handler()
+       private final Handler toastHandler = new Handler()
 	    {
 	        @Override
 	        public void handleMessage(Message msg)
