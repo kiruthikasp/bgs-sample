@@ -76,7 +76,9 @@ public class MyService extends BackgroundService {
         	long stopTime = currennTime + 2000;//provide the 2hrs time it should execute 1000*60*60*2
 	          while(stopTime != System.currentTimeMillis()){
 	              // Do your Job Here
-	              start();		
+	              start();	
+	            Toast.makeText(this, "Start Job"+stopTime , Toast.LENGTH_SHORT).show();
+	            Toast.makeText(this, "End Job"+System.currentTimeMillis() , Toast.LENGTH_SHORT).show();
                    toastHandler.sendEmptyMessage(0);
 	            System.out.println("Start Job"+stopTime);
 	            System.out.println("End Job"+System.currentTimeMillis());
