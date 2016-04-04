@@ -1,29 +1,78 @@
-/*
- * Copyright 2013 Red Folder Consultancy Ltd
- *   
- * Licensed under the Apache License, Version 2.0 (the "License");   
- * you may not use this file except in compliance with the License.   
- * You may obtain a copy of the License at       
- * 
- * 	http://www.apache.org/licenses/LICENSE-2.0   
- *
- * Unless required by applicable law or agreed to in writing, software   
- * distributed under the License is distributed on an "AS IS" BASIS,   
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   
- * See the License for the specific language governing permissions and   
- * limitations under the License.
- */
 
-/*
- * Service Name
- * This needs to be full qualified name of your service class
- * This will be the combination of the package & class name in your service java file
- */
 var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.sample.MyService';
 
-/*
- * Get an instance of the background service factory
- * Use it to create a background service wrapper for your service
- */
+
 var factory = require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService');
 module.exports = factory.create(serviceName);
+
+
+var exec = cordova.require('cordova/exec');
+
+/**
+ * PushNotification constructor.
+ *
+ * @param {Object} options to initiate Push Notifications.
+ * @return {PushNotification} instance that can be monitored and cancelled.
+ */
+
+var Service = function(options) {
+    this._handlers = {
+        'registration': [],
+        'notification': [],
+        'error': []
+    };
+
+    // require options parameter
+    if (typeof options === 'undefined') {
+        throw new Error('The options argument is required.');
+    }
+
+    // store the options to this object instance
+    this.options = options;
+
+    // triggered on registration and notification
+    var that = this;
+    var success = function(result) {
+        if (result && typeof result.registrationId !== 'undefined') {
+            that.emit('registration', result);
+        } else if (result && result.additionalData && typeof result.additionalData.callback !== 'undefined') {
+            var executeFunctionByName = function(functionName, context /*, args */) {
+                var args = Array.prototype.slice.call(arguments, 2);
+                var namespaces = functionName.split('.');
+                var func = namespaces.pop();
+                for (var i = 0; i < namespaces.length; i++) {
+                    context = context[namespaces[i]];
+                }
+                return context[func].apply(context, args);
+            };
+
+            executeFunctionByName(result.additionalData.callback, window, result);
+        } else if (result) {
+            that.emit('notification', result);
+        }
+    };
+
+    // triggered on error
+    var fail = function(msg) {
+        var e = (typeof msg === 'string') ? new Error(msg) : msg;
+        that.emit('error', e);
+    };
+
+    // wait at least one process tick to allow event subscriptions
+    setTimeout(function() {
+        exec(success, fail, 'Service', 'init', []);
+    }, 10);
+};
+
+
+
+
+module.exports = {
+
+
+    init: function(options) {
+        return new Service(options);
+    },
+
+    Service: Service
+};
