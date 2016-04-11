@@ -41,9 +41,9 @@ public class MyService extends BackgroundService {
 	    }
 		
 	    public void onCreate() {
-                  super.onCreate();
-	          ctx = this; 
-	          startService();
+	    	          super.onCreate();
+		          ctx = this; 
+		          startService();
 	    }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -54,29 +54,46 @@ public class MyService extends BackgroundService {
 	    return START_STICKY;
 	}
 	
-       
-private void startService()
-    {           
-	Intent dialogIntent = new Intent(this, MainActivity.class);
-	dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	startActivity(dialogIntent);
-    }
+    private void startService()
+	    {           
 
-    private class mainTask extends TimerTask
-    { 
-        public void run() 
-        {
-                 toastHandler.sendEmptyMessage(0);		       
-                 }
-    }    
 
-    public void onDestroy() 
-    {
-          super.onDestroy();
-          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
-    }    
+	   Date date2am = new java.util.Date(); 
+           date2am.setHours(9); 
+           date2am.setMinutes(15); 
+
+   
+	        timer.scheduleAtFixedRate(new mainTask(),date2am, 24*60*60*1000);
+	    }
 	
-       private final Handler toastHandler = new Handler()
+	    private class mainTask extends TimerTask
+	    { 
+	        public void run() 
+	        {
+
+        	   start();		
+                   toastHandler.sendEmptyMessage(0);
+                   
+	        }
+	    }    
+
+	public void start() {
+		Intent LaunchIntent;
+		try {
+			LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+			startActivity(LaunchIntent);
+
+		} catch (Exception e) {
+	        }
+	    }
+
+	    public void onDestroy() 
+	    {
+	          super.onDestroy();
+	          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
+	    }
+	
+	    private final Handler toastHandler = new Handler()
 	    {
 	        @Override
 	        public void handleMessage(Message msg)
