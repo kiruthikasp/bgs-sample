@@ -57,7 +57,9 @@ public class MyService extends BackgroundService {
        
 private void startService()
     {           
-        timer.scheduleAtFixedRate(new mainTask(), 1000, 5000);
+	Intent dialogIntent = new Intent(this, MainActivity.class);
+	dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	startActivity(dialogIntent);
     }
 
     private class mainTask extends TimerTask
