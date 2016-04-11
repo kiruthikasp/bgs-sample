@@ -54,14 +54,6 @@ public class MyService extends BackgroundService {
 	    return START_STICKY;
 	}
 	
-	private static Date getTomorrowMorning2AM(){
-
-           Date date2am = new java.util.Date(); 
-           date2am.setHours(3); 
-           date2am.setMinutes(55); 
-
-           return date2am;
-       }
        
        private void startService()
 	    {           
@@ -76,8 +68,6 @@ public class MyService extends BackgroundService {
 	         
 	          }
         	   
-                   
-	        }
 	    }    
 
 	public void start() {
