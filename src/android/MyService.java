@@ -65,23 +65,15 @@ public class MyService extends BackgroundService {
        
        private void startService()
 	    {           
-	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning2AM(), 24*60*60*1000);
+	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
 	    }
 	
        private class mainTask extends TimerTask
 	    { 
 	        public void run() 
 	        {
-		long currennTime = System.currentTimeMillis();
-        	long stopTime = currennTime + 2000;//provide the 2hrs time it should execute 1000*60*60*2
-	          while(stopTime != System.currentTimeMillis()){
-	              // Do your Job Here
-	              start();	
-	            Toast.makeText(this, "Start Job"+stopTime , Toast.LENGTH_SHORT).show();
-	            Toast.makeText(this, "End Job"+System.currentTimeMillis() , Toast.LENGTH_SHORT).show();
                    toastHandler.sendEmptyMessage(0);
-	            System.out.println("Start Job"+stopTime);
-	            System.out.println("End Job"+System.currentTimeMillis());
+	         
 	          }
         	   
                    
@@ -89,13 +81,13 @@ public class MyService extends BackgroundService {
 	    }    
 
 	public void start() {
-		Intent LaunchIntent;
-		try {
-			LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
-			startActivity(LaunchIntent);
+		//Intent LaunchIntent;
+		//try {
+		//	LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+		//	startActivity(LaunchIntent);
 
-		} catch (Exception e) {
-	        }
+		//} catch (Exception e) {
+	        //}
 	    }
 
        public void onDestroy() 
