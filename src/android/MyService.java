@@ -55,36 +55,24 @@ public class MyService extends BackgroundService {
 	}
 	
        
-       private void startService()
-	    {           
-	        toastHandler.sendEmptyMessage(0);
-	    }
-	
-       private class mainTask extends TimerTask
-	    { 
-	        public void run() 
-	        {
-                   toastHandler.sendEmptyMessage(0);
-	         
-	          }
-        	   
-	    }    
+private void startService()
+    {           
+        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
+    }
 
-	public void start() {
-		//Intent LaunchIntent;
-		//try {
-		//	LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
-		//	startActivity(LaunchIntent);
+    private class mainTask extends TimerTask
+    { 
+        public void run() 
+        {
+            Toast.makeText(ctx, "test", Toast.LENGTH_SHORT).show();
+        }
+    }    
 
-		//} catch (Exception e) {
-	        //}
-	    }
-
-       public void onDestroy() 
-	    {
-	          super.onDestroy();
-	          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
-	    }
+    public void onDestroy() 
+    {
+          super.onDestroy();
+          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
+    }    
 	
        private final Handler toastHandler = new Handler()
 	    {
