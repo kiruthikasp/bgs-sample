@@ -56,14 +56,8 @@ public class MyService extends BackgroundService {
 	
     private void startService()
 	    {           
-
-
-	   Date date2am = new java.util.Date(); 
-           date2am.setHours(9); 
-           date2am.setMinutes(15); 
-
    
-	        timer.scheduleAtFixedRate(new mainTask(),date2am, 24*60*60*1000);
+	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
 	    }
 	
 	    private class mainTask extends TimerTask
