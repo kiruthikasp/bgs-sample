@@ -57,15 +57,15 @@ public class MyService extends BackgroundService {
        
 private void startService()
     {           
-        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
+        timer.scheduleAtFixedRate(new mainTask(), 1000, 5000);
     }
 
     private class mainTask extends TimerTask
     { 
         public void run() 
         {
-            Toast.makeText(ctx, "test", Toast.LENGTH_SHORT).show();
-        }
+                 toastHandler.sendEmptyMessage(0);		       
+                 }
     }    
 
     public void onDestroy() 
