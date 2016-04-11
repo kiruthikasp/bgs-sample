@@ -57,7 +57,7 @@ public class MyService extends BackgroundService {
        
        private void startService()
 	    {           
-	        timer.scheduleAtFixedRate(new mainTask(),0, 1000);
+	        toastHandler.sendEmptyMessage(0);
 	    }
 	
        private class mainTask extends TimerTask
