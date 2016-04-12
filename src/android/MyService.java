@@ -5,11 +5,19 @@ import java.util.Date;
 import android.widget.Toast; 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.IOException;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.os.Bundle;
+import android.view.View;
+
 import android.util.Log;
 import android.widget.Toast;
 import android.os.Binder;
@@ -20,12 +28,14 @@ import android.content.Intent;
 import android.os.Message;
 import android.os.Messenger;
 import android.widget.Toast;
+import android.content.pm.PackageManager;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
 public class MyService extends BackgroundService {
 	
 	private final static String TAG = MyService.class.getSimpleName();
+	private PendingIntent pendingIntent;
 	
 	private String mHelloTo = "World";
 	private static Timer timer = new Timer(); 
@@ -35,13 +45,13 @@ public class MyService extends BackgroundService {
 	    {
 	          return null;
 	    }
-	
-	    public void onCreate() 
-	    {
-	          super.onCreate();
-	          ctx = this; 
-	          startService();
+		
+	    public void onCreate() {
+	    	          super.onCreate();
+		          ctx = this; 
+		          startService();
 	    }
+ 
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
 	    Toast.makeText(this, "LocalServic Received start id "+ startId , Toast.LENGTH_SHORT).show();
@@ -49,19 +59,46 @@ public class MyService extends BackgroundService {
 	    // stopped, so return sticky.
 	    return START_STICKY;
 	}
-	    private void startService()
+	
+    private void startService()
 	    {           
-	        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
+   
+	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
 	    }
 	
 	    private class mainTask extends TimerTask
 	    { 
 	        public void run() 
 	        {
-	            toastHandler.sendEmptyMessage(0);
+
+        	   start();		
+                   toastHandler.sendEmptyMessage(0);
+                   
 	        }
 	    }    
-	
+
+	public void start() {
+		        Intent alarmIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+        		pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
+		try {
+			AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        int interval = 1000 * 60 * 20;
+
+        /* Set the alarm to start at 10:30 AM */
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 30);
+
+        /* Repeating on every 20 minutes interval */
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * 20, pendingIntent);
+
+		} catch (Exception e) {
+	        }
+	    }
+
 	    public void onDestroy() 
 	    {
 	          super.onDestroy();
@@ -76,6 +113,7 @@ public class MyService extends BackgroundService {
 	            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
 	        }
 	    };    
+	
 	@Override
 	protected JSONObject doWork() {
 		JSONObject result = new JSONObject();
@@ -86,17 +124,14 @@ public class MyService extends BackgroundService {
 
 			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
 			result.put("Message", msg);
-			Toast.makeText(this.getApplicationContext(), "this is my Toast message!!! =)",
-   			Toast.LENGTH_LONG).show();
+
 			Log.d(TAG, msg);
-			Toast.makeText(getApplicationContext(), "do work!!", Toast.LENGTH_SHORT).show();
-			 Log.i("Service", "doSomethingOnService() called");
 		} catch (JSONException e) {
 		}
 		
 		return result;	
 	}
-	
+
 	@Override
 	protected JSONObject getConfig() {
 		JSONObject result = new JSONObject();
