@@ -35,6 +35,7 @@ import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 public class MyService extends BackgroundService {
 	
 	private final static String TAG = MyService.class.getSimpleName();
+	private PendingIntent pendingIntent;
 	
 	private String mHelloTo = "World";
 	private static Timer timer = new Timer(); 
