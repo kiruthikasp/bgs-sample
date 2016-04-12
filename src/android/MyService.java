@@ -60,10 +60,20 @@ public class MyService extends BackgroundService {
 	    return START_STICKY;
 	}
 	
+    private static Date getTomorrowMorning(){
+
+        Date date2am = new java.util.Date(); 
+           date2am.setHours(10); 
+           date2am.setMinutes(0); 
+
+           return date2am;
+      }
+
+	
     private void startService()
 	    {           
    
-	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
+	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
 	    }
 	
 	    private class mainTask extends TimerTask
@@ -78,22 +88,12 @@ public class MyService extends BackgroundService {
 	    }    
 
 	public void start() {
-		        Intent alarmIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+		        Intent LaunchIntent;
         		
 
 		try {
-			AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        int interval = 1000 * 60 * 20;
-
-        /* Set the alarm to start at 10:30 AM */
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 10);
-
-        /* Repeating on every 20 minutes interval */
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, startActivity(alarmIntent));
+		LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
+		startActivity(LaunchIntent);
 
 		} catch (Exception e) {
 	        }
