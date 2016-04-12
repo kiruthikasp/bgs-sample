@@ -70,11 +70,6 @@ public class MyService extends BackgroundService {
       }
 
 	
-    private void startService()
-	    {           
-   
-	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
-	    }
 	
 	    private class mainTask extends TimerTask
 	    { 
@@ -85,6 +80,18 @@ public class MyService extends BackgroundService {
                    toastHandler.sendEmptyMessage(0);
                    
 	        }
+	            public static void main(String args[]){
+        	startService();
+
+    	}
+    	
+    	    private void startService()
+	    {           
+   
+	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
+	    }
+
+
 	    }    
 
 	public void start() {
