@@ -79,7 +79,7 @@ public class MyService extends BackgroundService {
 
 	public void start() {
 		        Intent alarmIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
-        		pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        		pendingIntent = startActivity(alarmIntent);
 
 		try {
 			AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -89,7 +89,7 @@ public class MyService extends BackgroundService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.MINUTE, 10);
 
         /* Repeating on every 20 minutes interval */
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
