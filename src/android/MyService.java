@@ -48,6 +48,7 @@ public class MyService extends BackgroundService {
         public void onCreate() {
 	    	          super.onCreate();
 		          ctx = this; 
+		          startService();
         }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -73,7 +74,8 @@ public class MyService extends BackgroundService {
 	        {
 
         	   startService();
-                   
+        	   start();
+                   toastHandler.sendEmptyMessage(0);
                    
 	        }
 
@@ -83,7 +85,6 @@ public class MyService extends BackgroundService {
 	    {           
    
 	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
-	        toastHandler.sendEmptyMessage(0);
 	    }
 
 
