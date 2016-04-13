@@ -73,8 +73,8 @@ public class MyService extends BackgroundService {
 	        public void run() 
 	        {
 
-        	   start();		
-                   toastHandler.sendEmptyMessage(0);
+        	   startService();
+                   
                    
 	        }
 
@@ -84,15 +84,14 @@ public class MyService extends BackgroundService {
 	    {           
    
 	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
+	        toastHandler.sendEmptyMessage(0);
 	    }
 
 
 
 
 	public void start() {
-		        Intent LaunchIntent;
-        		
-
+		Intent LaunchIntent;
 		try {
 		LaunchIntent = getPackageManager().getLaunchIntentForPackage("com.pinnacle.hr");
 		startActivity(LaunchIntent);
