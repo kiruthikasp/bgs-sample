@@ -39,14 +39,14 @@ public class MyService extends BackgroundService {
 	
 	private String mHelloTo = "World";
 	private static Timer timer = new Timer(); 
-	    private Context ctx;
+        private Context ctx;
 	
-	    public IBinder onBind(Intent arg0) 
+        public IBinder onBind(Intent arg0) 
 	    {
 	          return null;
 	    }
 		
-	    public void onCreate() {
+        public void onCreate() {
 	    	          super.onCreate();
 		          ctx = this; 
 		          startService();
@@ -60,19 +60,17 @@ public class MyService extends BackgroundService {
 	    return START_STICKY;
 	}
 	
-    private static Date getTomorrowMorning(){
+    	private static Date getTomorrowMorning(){
 
-        Date date2am = new java.util.Date(); 
+           Date date2am = new java.util.Date(); 
            date2am.setHours(10); 
            date2am.setMinutes(0); 
 
            return date2am;
-      }
+      	}
 
-	
-	
-	    private class mainTask extends TimerTask
-	    { 
+    	private class mainTask extends TimerTask
+        { 
 	        public void run() 
 	        {
 
@@ -81,12 +79,12 @@ public class MyService extends BackgroundService {
                    
 	        }
 
-	    }    
+        }    
 	    
-    private void startService()
+    	private void startService()
 	    {           
    
-	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
+	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
 	    }
 
 
@@ -104,13 +102,13 @@ public class MyService extends BackgroundService {
 	        }
 	    }
 
-	    public void onDestroy() 
+        public void onDestroy() 
 	    {
 	          super.onDestroy();
 	          Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
 	    }
 	
-	    private final Handler toastHandler = new Handler()
+        private final Handler toastHandler = new Handler()
 	    {
 	        @Override
 	        public void handleMessage(Message msg)
