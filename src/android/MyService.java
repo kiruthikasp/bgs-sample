@@ -49,7 +49,6 @@ public class MyService extends BackgroundService {
         public void onCreate() {
 	    	          super.onCreate();
 		          ctx = this; 
-		          startService();
 	    }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -64,7 +63,7 @@ public class MyService extends BackgroundService {
 
            Date date2am = new java.util.Date(); 
            date2am.setHours(10); 
-           date2am.setMinutes(0); 
+           date2am.setMinutes(48); 
 
            return date2am;
       	}
@@ -84,7 +83,7 @@ public class MyService extends BackgroundService {
     	private void startService()
 	    {           
    
-	        timer.scheduleAtFixedRate(new mainTask(),1000, 5000);
+	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
 	    }
 
 
