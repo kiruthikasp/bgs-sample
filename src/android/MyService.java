@@ -67,17 +67,17 @@ public class MyService extends BackgroundService {
            return date2am;
       	}
 
-    	//private class mainTask extends TimerTask
-        //{ 
-	       // public void run() 
-	      //  {
+    	private class mainTask extends TimerTask
+        { 
+	        public void run() 
+	        {
 
-        	  // startService();
+        	   startService();
                    
                    
-	      //  }
+	        }
 
-      //  }    
+       }    
 	    
     	private void startService()
 	    {           
@@ -86,26 +86,6 @@ public class MyService extends BackgroundService {
 	        toastHandler.sendEmptyMessage(0);
 	    }
 
- final Handler handler = new Handler();
-  Timer timer = new Timer();
-    TimerTask doAsynchronousTask = new TimerTask() {       
-        @Override
-        public void run() {
-            handler.post(new Runnable() {
-                @SuppressWarnings("unchecked")
-                public void run() { 
-                   try {
-	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
-	        toastHandler.sendEmptyMessage(0);
-                       }
-                 catch (Exception e) {
-                        // TODO Auto-generated catch block
-                    }
-                }
-            });
-        }
-    };
-    timer.schedule(doAsynchronousTask,getTomorrowMorning(), 1000*60*60); 
 
 
 
