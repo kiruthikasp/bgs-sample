@@ -36,6 +36,7 @@ public class MyService extends BackgroundService {
 	
 	private final static String TAG = MyService.class.getSimpleName();
 	private PendingIntent pendingIntent;
+	private static Timer timer = new Timer(); 
 	
 	private String mHelloTo = "World";
         private Context ctx;
