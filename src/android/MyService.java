@@ -38,7 +38,6 @@ public class MyService extends BackgroundService {
 	private PendingIntent pendingIntent;
 	
 	private String mHelloTo = "World";
-	private static Timer timer = new Timer(); 
         private Context ctx;
 	
         public IBinder onBind(Intent arg0) 
@@ -49,7 +48,7 @@ public class MyService extends BackgroundService {
         public void onCreate() {
 	    	          super.onCreate();
 		          ctx = this; 
-	    }
+        }
  
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Log.i("LocalService", "Received start id " + startId + ": " + intent);
@@ -62,23 +61,23 @@ public class MyService extends BackgroundService {
     	private static Date getTomorrowMorning(){
 
            Date date2am = new java.util.Date(); 
-           date2am.setHours(10); 
-           date2am.setMinutes(48); 
+           date2am.setHours(11); 
+           date2am.setMinutes(0); 
 
            return date2am;
       	}
 
-    	private class mainTask extends TimerTask
-        { 
-	        public void run() 
-	        {
+    	//private class mainTask extends TimerTask
+        //{ 
+	       // public void run() 
+	      //  {
 
-        	   startService();
+        	  // startService();
                    
                    
-	        }
+	      //  }
 
-        }    
+      //  }    
 	    
     	private void startService()
 	    {           
@@ -87,6 +86,26 @@ public class MyService extends BackgroundService {
 	        toastHandler.sendEmptyMessage(0);
 	    }
 
+ final Handler handler = new Handler();
+  Timer timer = new Timer();
+    TimerTask doAsynchronousTask = new TimerTask() {       
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                @SuppressWarnings("unchecked")
+                public void run() { 
+                   try {
+	        timer.scheduleAtFixedRate(new mainTask(),getTomorrowMorning(), 1000*60*60*24);
+	        toastHandler.sendEmptyMessage(0);
+                       }
+                 catch (Exception e) {
+                        // TODO Auto-generated catch block
+                    }
+                }
+            });
+        }
+    };
+    timer.schedule(doAsynchronousTask,getTomorrowMorning(), 1000*60*60); 
 
 
 
